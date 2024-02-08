@@ -1,0 +1,25 @@
+{
+  "name": "ts-rest-server-clean",
+  "version": "1.0.0",
+  "description": "Node + Typescript + MongoDB + Docker + Express + JWT + CLEAN",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsnd --respawn --clear src/app.ts",
+    "build": "rimraf ./dist && tsc",
+    "start": "npm run build && node dist/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Felipe-Navas/ts-rest-server-clean.git"
+  },
+  "keywords": [],
+  "author": "https://www.linkedin.com/in/felipenavaslederhos",
+  "homepage": "https://github.com/Felipe-Navas/ts-rest-server-clean#readme",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.16",
+    "rimraf": "^5.0.5",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
+  }
+}
