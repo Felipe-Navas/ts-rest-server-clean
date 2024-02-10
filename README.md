@@ -30,5 +30,5 @@ This README would normally document whatever steps are necessary to get the appl
 
 ### Stack used in this repo ###
 
-* Node v16.15.0
-* npm v8.5.5
+* Node v20.11.0
+* npm v10.2.4
