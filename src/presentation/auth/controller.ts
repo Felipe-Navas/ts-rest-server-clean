@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { RegisterUserDto } from '../../domain/dtos/auth';
+import { RegisterUserDto } from '../../domain';
 
 export class AuthController {
   constructor() {}
