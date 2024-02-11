@@ -14,7 +14,9 @@ export class AuthDatasourceImpl implements AuthDatasource {
       // 2 Hash the password
       // 3 Map response to the Entity
 
-      return new UserEntity('1', name, email, password, ['ADMIN_ROLE']);
+      return new UserEntity(crypto.randomUUID(), name, email, password, [
+        'ADMIN_ROLE'
+      ]);
     } catch (error) {
       if (error instanceof CustomError) {
         throw error;
