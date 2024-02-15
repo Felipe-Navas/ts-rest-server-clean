@@ -6,7 +6,7 @@ export class LoginUserDto {
     public password: string
   ) {}
 
-  static login(object: { [key: string]: string }): [string?, LoginUserDto?] {
+  static create(object: { [key: string]: string }): [string?, LoginUserDto?] {
     const { email, password } = object;
     if (!email) return ['Missing email'];
     if (!Validators.email.test(email)) return ['Email is not valid'];

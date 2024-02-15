@@ -1,7 +1,7 @@
+import { AuthRepository } from '../../repositories/auth.repository';
+import { CustomError } from '../../errors/custom.error';
 import { JwtAdapter } from '../../../config';
 import { RegisterUserDto } from '../../dtos/auth/register-user.dto';
-import { CustomError } from '../../errors/custom.error';
-import { AuthRepository } from '../../repositories/auth.repository';
 
 interface UserToken {
   token: string;
