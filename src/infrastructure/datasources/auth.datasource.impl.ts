@@ -2,6 +2,7 @@ import { BcryptAdapter } from '../../config';
 import {
   AuthDatasource,
   CustomError,
+  LoginUserDto,
   RegisterUserDto,
   UserEntity
 } from '../../domain';
@@ -16,15 +17,37 @@ export class AuthDatasourceImpl implements AuthDatasource {
     private readonly comparePassword: CompareFunction = BcryptAdapter.compare
   ) {}
 
+  async login(loginUserDto: LoginUserDto): Promise<UserEntity> {
+    const { email, password } = loginUserDto;
+
+    try {
+      // Check if the email exist
+      const user = await UserModel.findOne({ email });
+      if (!user) throw CustomError.badRequest('User does not exists - email');
+
+      // Validate password
+      const validPassword = this.comparePassword(password, user.password)
+      if (!validPassword) throw CustomError.badRequest('Not valid password')
+
+      // Map response to the Entity
+      return UserMapper.userEntityFromObject(user);
+    } catch (error) {
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      throw CustomError.internalServer();
+    }
+  }
+
   async register(registerUserDto: RegisterUserDto): Promise<UserEntity> {
     const { name, email, password } = registerUserDto;
 
     try {
-      // 1 Check if the email exist
+      // Check if the email exist
       const exists = await UserModel.findOne({ email });
       if (exists) throw CustomError.badRequest('User already exists');
 
-      // 2 Hash the password
+      // Hash the password
       const user = await UserModel.create({
         name,
         email,
@@ -33,7 +56,7 @@ export class AuthDatasourceImpl implements AuthDatasource {
 
       await user.save();
 
-      // 3 Map response to the Entity
+      // Map response to the Entity
       return UserMapper.userEntityFromObject(user);
     } catch (error) {
       if (error instanceof CustomError) {
